@@ -1,6 +1,6 @@
 # Trivia Question App
 
-https://nikolaydimov.github.io/Trivia-Questions/
+https://nikolaydimov.github.io/Trivia-Questions_TS_Secure_Local_Storage/
 
 Welcome to the Trivia Question App! This application provides a fun and engaging way for users to test their knowledge across various topics through trivia questions.
 
