@@ -22,6 +22,6 @@ Welcome to the Trivia Question App! This application provides a fun and engaging
 
 1. **Clone the Repository:**
     ```bash
-    git clone https://github.com/NikolayDimov/Trivia-Questions.git
-    cd Trivia-Questions
+    git clone https://github.com/NikolayDimov/Trivia-Questions_TS_Secure_Local_Storage.git
+    cd rivia-Questions_TS_Secure_Local_Storage
     ```
