@@ -8,7 +8,7 @@ module.exports = {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
     },
-    devtool: flase,
+    devtool: false,
     module: {
         rules: [
             {
