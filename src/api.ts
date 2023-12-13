@@ -537,40 +537,40 @@ function clearLocalStorage() {
 // * Restart the quiz * ------------------------------------------------------------------- END
 
 // * Download function * ------------------------------------------------------------------- START
-// const worker = new Worker("./worker.js", { type: "module" });
+const worker = new Worker(new URL("./worker.ts", import.meta.url));
 
-// downloadResults?.addEventListener("click", () => {
-//     const selectAmountRaw = localStorage.getItem("selectAmount");
-//     const wrongAnswersRaw = localStorage.getItem("wrongAnswers");
-//     const selectedCategoryRaw = localStorage.getItem("selectedCategory");
-//     const selectDifficultyRaw = localStorage.getItem("selectDifficulty");
-//     const currentCorrectScoreRaw = localStorage.getItem("currentCorrectScore");
+downloadResults?.addEventListener("click", () => {
+    const selectAmountRaw = localStorage.getItem("selectAmount");
+    const wrongAnswersRaw = localStorage.getItem("wrongAnswers");
+    const selectedCategoryRaw = localStorage.getItem("selectedCategory");
+    const selectDifficultyRaw = localStorage.getItem("selectDifficulty");
+    const currentCorrectScoreRaw = localStorage.getItem("currentCorrectScore");
 
-//     const selectAmount = selectAmountRaw ? JSON.parse(selectAmountRaw) : "0";
-//     const wrongAnswers = wrongAnswersRaw ? JSON.parse(wrongAnswersRaw) : "[]";
-//     const selectedCategory = selectedCategoryRaw ? JSON.parse(selectedCategoryRaw) : "defaultCategory";
-//     const selectDifficulty = selectDifficultyRaw ? JSON.parse(selectDifficultyRaw) : "defaultDifficulty";
-//     const currentCorrectScore = currentCorrectScoreRaw ? JSON.parse(currentCorrectScoreRaw) : "0";
+    const selectAmount = selectAmountRaw ? JSON.parse(selectAmountRaw) : "0";
+    const wrongAnswers = wrongAnswersRaw ? JSON.parse(wrongAnswersRaw) : "[]";
+    const selectedCategory = selectedCategoryRaw ? JSON.parse(selectedCategoryRaw) : "defaultCategory";
+    const selectDifficulty = selectDifficultyRaw ? JSON.parse(selectDifficultyRaw) : "defaultDifficulty";
+    const currentCorrectScore = currentCorrectScoreRaw ? JSON.parse(currentCorrectScoreRaw) : "0";
 
-//     // const selectAmount = (JSON.parse(localStorage.getItem("selectAmount");
-//     // const wrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers"));
-//     // const selectedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
-//     // const selectDifficulty = JSON.parse(localStorage.getItem("selectDifficulty"));
-//     // const currentCorrectScore = JSON.parse(localStorage.getItem("currentCorrectScore"));
+    // const selectAmount = (JSON.parse(localStorage.getItem("selectAmount");
+    // const wrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers"));
+    // const selectedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
+    // const selectDifficulty = JSON.parse(localStorage.getItem("selectDifficulty"));
+    // const currentCorrectScore = JSON.parse(localStorage.getItem("currentCorrectScore"));
 
-//     worker.onmessage = (e) => {
-//         const blob = e.data;
-//         const link = document.createElement("a");
-//         link.href = URL.createObjectURL(blob);
-//         link.download = "QuizResults.zip";
-//         link.click();
-//     };
-//     worker.postMessage({
-//         currentCorrectScore,
-//         selectAmount,
-//         wrongAnswers,
-//         selectedCategory,
-//         selectDifficulty,
-//     });
-// });
+    worker.onmessage = (e) => {
+        const blob = e.data;
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "QuizResults.zip";
+        link.click();
+    };
+    worker.postMessage({
+        currentCorrectScore,
+        selectAmount,
+        wrongAnswers,
+        selectedCategory,
+        selectDifficulty,
+    });
+});
 // * Download function * ------------------------------------------------------------------- END
