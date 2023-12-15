@@ -1,5 +1,7 @@
 import { fetchFunData, getRandomFunFact } from "./fun";
 // ENCRYPTED DATA
+
+// Can we have this as 2 methods instead of 4?
 import { encryptScore } from "./crypto";
 import { encryptQuestions } from "./crypto";
 import { decryptQuestions } from "./crypto";
@@ -80,9 +82,7 @@ export function getData() {
             setupQuizWithFunFacts(); // Fetch Fun Facts
             fixBugWithButtonsDisplay(); // Fixing bug with generate new quiz and Next btn and Play Again btn
         })
-        .catch((error) => {
-            console.error(error);
-        });
+        .catch(console.error); // be lazy
 }
 
 // --- Main function ---
@@ -90,20 +90,19 @@ export function getData() {
 // -- Functions helpers --
 // Download result button hede, display wnhen qiuz end
 function hideDownloadResultButton() {
-    if (downloadResults) {
+    if (downloadResults)
         downloadResults.style.display = "none";
-    }
 }
 
 // Quiz parameters display on screen
 
 function setQuizParameters() {
     const selectDifficultyElement = document.getElementById("selected_difficulty") as OptionsElement;
+    const selectedCategoryElement = document.getElementById("selected_category") as OptionsElement;
 
     if (selectDifficultyElement) {
         selectDifficulty = selectDifficultyElement.value;
     }
-    const selectedCategoryElement = document.getElementById("selected_category") as OptionsElement;
 
     if (selectedCategoryElement) {
         selectedCategory = selectedCategoryElement.value;
@@ -176,7 +175,7 @@ function setupQuizWithFunFacts() {
 
             const nextQuestionElelemnt = document.getElementById("next-question") as ButtonElement;
             nextQuestionElelemnt?.addEventListener("click", () => {
-                displayRandomFunFact(storedFunData);
+                displayRandomFunFact(storedFunData); // doesn't it work with just displayRandomFunFact(funData)
             });
         } else {
             // Handle the case where funData is undefined
@@ -300,11 +299,9 @@ function showQuestion(data: SingleQuestion | undefined) {
                 questionOptions.appendChild(li);
             }
         });
-    } else {
-        return;
+        
+        selectAnswers();
     }
-
-    selectAnswers();
 }
 
 // Helper function to shuffle an array with answers
@@ -493,7 +490,8 @@ function restartQuiz() {
                 const storedFunData = funData;
 
                 // Display a random fun fact
-                displayRandomFunFact(storedFunData);
+                displayRandomFunFact(storedFunData); // same as previous comment => wouldn't it work with just 
+                // displayRandomFunFact(funData)
             } else {
                 console.error("Failed to fetch fun data");
             }
@@ -529,6 +527,7 @@ function displayButtonsAfterRestart() {
 function clearLocalStorage() {
     const keysToClear = ["question", "selectAmount", "selectDifficulty", "selectedCategory", "currentCorrectScore", "wrongAnswers"];
 
+    // I like this
     keysToClear.forEach((key) => {
         localStorage.removeItem(key);
     });
@@ -571,4 +570,6 @@ downloadResults?.addEventListener("click", () => {
         selectDifficulty,
     });
 });
+
+// Overall good code, can be improved further by putting it in a class to avoid all the if statemets for element existance && initializing this class only if all elements are present
 // * Download function * ------------------------------------------------------------------- END
