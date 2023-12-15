@@ -99,11 +99,11 @@ function hideDownloadResultButton() {
 
 function setQuizParameters() {
     const selectDifficultyElement = document.getElementById("selected_difficulty") as OptionsElement;
+    const selectedCategoryElement = document.getElementById("selected_category") as OptionsElement;
 
     if (selectDifficultyElement) {
         selectDifficulty = selectDifficultyElement.value;
     }
-    const selectedCategoryElement = document.getElementById("selected_category") as OptionsElement;
 
     if (selectedCategoryElement) {
         selectedCategory = selectedCategoryElement.value;
@@ -172,11 +172,12 @@ function setupQuizWithFunFacts() {
             loadQuestions();
             displayRandomFunFact(funData);
 
-            const storedFunData = funData;
+            // const storedFunData = funData;
 
             const nextQuestionElelemnt = document.getElementById("next-question") as ButtonElement;
             nextQuestionElelemnt?.addEventListener("click", () => {
-                displayRandomFunFact(storedFunData);
+                // displayRandomFunFact(storedFunData);
+                displayRandomFunFact(funData);
             });
         } else {
             // Handle the case where funData is undefined
@@ -300,11 +301,8 @@ function showQuestion(data: SingleQuestion | undefined) {
                 questionOptions.appendChild(li);
             }
         });
-    } else {
-        return;
+        selectAnswers();
     }
-
-    selectAnswers();
 }
 
 // Helper function to shuffle an array with answers
@@ -490,10 +488,11 @@ function restartQuiz() {
         .then((funData) => {
             if (funData) {
                 // Update the stored fun data
-                const storedFunData = funData;
+                // const storedFunData = funData;
 
                 // Display a random fun fact
-                displayRandomFunFact(storedFunData);
+                // displayRandomFunFact(storedFunData);
+                displayRandomFunFact(funData);
             } else {
                 console.error("Failed to fetch fun data");
             }
