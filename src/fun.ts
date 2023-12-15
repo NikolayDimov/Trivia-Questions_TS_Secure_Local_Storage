@@ -19,10 +19,7 @@ async function fetchFunData() {
             throw new Error(`HTTP error! Status: ${newApiResponse.status}`);
         }
 
-        const funData: FunData[] = await newApiResponse.json();
-
-        // console.log(funData);
-        return funData;
+        return await newApiResponse.json();
     } catch (error) {
         console.error(error);
     }
@@ -33,4 +30,4 @@ function getRandomFunFact(funData: FunData[]) {
     return funData[randomIndex].fact;
 }
 
-export { fetchFunData, getRandomFunFact };
+export { fetchFunData, getRandomFunFact }; // I like
