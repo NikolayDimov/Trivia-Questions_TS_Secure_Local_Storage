@@ -13,7 +13,6 @@
   "license": "ISC",
   "dependencies": {
     "@zip.js/zip.js": "^2.7.32",
-    "crypto": "^1.0.1",
     "crypto-js": "^4.2.0"
   },
   "devDependencies": {
