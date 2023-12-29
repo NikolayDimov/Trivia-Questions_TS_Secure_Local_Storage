@@ -14,7 +14,7 @@ const category = document.querySelector<HTMLElement>("#category_span");
 const difficulty = document.querySelector<HTMLElement>("#difficulty_span");
 const question = document.querySelector<HTMLElement>("#question_span");
 const questionOptions = document.querySelector<HTMLElement>(".question-options");
-const totalQuestion = document.querySelector<HTMLElement>("total-question");
+const totalQuestion = document.querySelector<HTMLElement>("#total-question");
 const selectAmountElement = document.querySelector<HTMLOptionElement>("#selected_amount");
 
 const checkBtn = document.querySelector<HTMLButtonElement>("#next-question");
@@ -552,19 +552,20 @@ downloadResults?.addEventListener("click", () => {
     const selectDifficulty = selectDifficultyRaw ? JSON.parse(selectDifficultyRaw) : "defaultDifficulty";
     const currentCorrectScore = decryptScore("currentCorrectScore");
 
-    // const selectAmount = (JSON.parse(localStorage.getItem("selectAmount");
-    // const wrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers"));
-    // const selectedCategory = JSON.parse(localStorage.getItem("selectedCategory"));
-    // const selectDifficulty = JSON.parse(localStorage.getItem("selectDifficulty"));
-    // const currentCorrectScore = JSON.parse(localStorage.getItem("currentCorrectScore"));
-
     worker.onmessage = (e) => {
         const blob = e.data;
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "QuizResults.zip";
-        link.click();
+        // console.log("Received Blob:", blob);
+
+        if (blob) {
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "QuizResults.zip";
+            link.click();
+        } else {
+            console.error("Received undefined blob");
+        }
     };
+
     worker.postMessage({
         currentCorrectScore,
         selectAmount,
