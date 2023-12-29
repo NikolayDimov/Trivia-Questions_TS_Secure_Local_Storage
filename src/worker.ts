@@ -27,7 +27,7 @@ const categoryNames: { [key: number]: string } = {
     30: "Gadgets",
 };
 
-onmessage = async (e) => {
+onmessage = async (e: MessageEvent) => {
     const { currentCorrectScore, selectAmount, wrongAnswers, selectedCategory, selectDifficulty } = e.data;
 
     // Use the categoryNames object to get the category name
