@@ -5,28 +5,23 @@ import { encryptQuestions } from "./crypto";
 import { decryptQuestions } from "./crypto";
 import { decryptScore } from "./crypto";
 
-type HtmlElement = HTMLElement | null;
-type ButtonElement = HTMLButtonElement | null;
-type OptionsElement = HTMLOptionElement | null;
-type InputElement = HTMLInputElement | null;
-
 const apiUrl = "https://opentdb.com/api.php";
 let selectAmount: number = 0;
 let selectDifficulty: string = "";
 let selectedCategory: string = "";
 
-const category = document.getElementById("category_span") as HtmlElement;
-const difficulty = document.getElementById("difficulty_span") as HtmlElement;
-const question = document.getElementById("question_span") as HtmlElement;
-const questionOptions = document.querySelector(".question-options") as HtmlElement;
-const totalQuestion = document.getElementById("total-question") as HtmlElement;
-const selectAmountElement = document.getElementById("selected_amount") as OptionsElement;
+const category = document.querySelector<HTMLElement>("#category_span");
+const difficulty = document.querySelector<HTMLElement>("#difficulty_span");
+const question = document.querySelector<HTMLElement>("#question_span");
+const questionOptions = document.querySelector<HTMLElement>(".question-options");
+const totalQuestion = document.querySelector<HTMLElement>("total-question");
+const selectAmountElement = document.querySelector<HTMLOptionElement>("#selected_amount");
 
-const checkBtn = document.getElementById("next-question") as ButtonElement;
-const playAgainBtn = document.getElementById("play-again") as ButtonElement;
+const checkBtn = document.querySelector<HTMLButtonElement>("#next-question");
+const playAgainBtn = document.querySelector<HTMLButtonElement>("#play-again");
 
-const result = document.getElementById("result") as HTMLElement;
-const downloadResults = document.getElementById("downloadReasult") as ButtonElement;
+const result = document.querySelector<HTMLElement>("#result");
+const downloadResults = document.querySelector<HTMLElement>("#downloadReasult");
 
 let currentCorrectAnswer: string = "";
 let currentCorrectScore: number = 0;
@@ -34,8 +29,10 @@ let currentAskedCount: number = 0;
 let currentTotalQuestion: number = 0;
 
 // Generation New Quiz
-const generateNewQuizBtn = document.getElementById("getDataButton") as HTMLButtonElement;
-generateNewQuizBtn.addEventListener("click", getData);
+const generateNewQuizBtn = document.querySelector<HTMLButtonElement>("#getDataButton");
+if (generateNewQuizBtn) {
+    generateNewQuizBtn.addEventListener("click", getData);
+}
 
 // Provided an event listener attached to the DOMContentLoaded event
 document.addEventListener("DOMContentLoaded", () => {
@@ -98,8 +95,8 @@ function hideDownloadResultButton() {
 // Quiz parameters display on screen
 
 function setQuizParameters() {
-    const selectDifficultyElement = document.getElementById("selected_difficulty") as OptionsElement;
-    const selectedCategoryElement = document.getElementById("selected_category") as OptionsElement;
+    const selectDifficultyElement = document.querySelector<HTMLOptionElement>("#selected_difficulty");
+    const selectedCategoryElement = document.querySelector<HTMLOptionElement>("#selected_category");
 
     if (selectDifficultyElement) {
         selectDifficulty = selectDifficultyElement.value;
@@ -147,7 +144,9 @@ function clearOptionsAndResult() {
     if (questionOptions) {
         questionOptions.innerHTML = "";
     }
-    result.innerHTML = "";
+    if (result) {
+        result.innerHTML = "";
+    }
 }
 
 // Reset question count and score
@@ -174,7 +173,7 @@ function setupQuizWithFunFacts() {
 
             // const storedFunData = funData;
 
-            const nextQuestionElelemnt = document.getElementById("next-question") as ButtonElement;
+            const nextQuestionElelemnt = document.querySelector<HTMLButtonElement>("#next-question");
             nextQuestionElelemnt?.addEventListener("click", () => {
                 // displayRandomFunFact(storedFunData);
                 displayRandomFunFact(funData);
@@ -210,7 +209,7 @@ function eventListeners() {
 
 // FunFacts random display function
 function displayRandomFunFact(funData: FunData[]) {
-    const funFactElement = document.querySelector(".fun-fatcs-p") as InputElement;
+    const funFactElement = document.querySelector<HTMLInputElement>(".fun-fatcs-p");
     const randomFunFact = getRandomFunFact(funData);
     if (funFactElement) {
         funFactElement.textContent = `"${randomFunFact}"`;
@@ -392,7 +391,9 @@ function checkAnswer() {
 // Show result information
 function showResult(isCorrect: boolean, message: string) {
     // console.log("showResult called");
-    result.innerHTML = `<p><i class="fas ${isCorrect ? "fa-check" : "fa-times"}"></i>${message}</p>`;
+    if (result) {
+        result.innerHTML = `<p><i class="fas ${isCorrect ? "fa-check" : "fa-times"}"></i>${message}</p>`;
+    }
 }
 
 // * Check count and end quiz if needed * -------------------------------------------------------------------  START
@@ -422,7 +423,9 @@ function isQuizComplete() {
 
 function handleQuizCompletion() {
     const scoreMessage = getScoreMessage();
-    result.innerHTML += scoreMessage;
+    if (result) {
+        result.innerHTML += scoreMessage;
+    }
 
     storeCurrentScore();
     showQuizOutcomeButtons();
